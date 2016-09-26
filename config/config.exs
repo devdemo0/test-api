@@ -9,6 +9,16 @@ use Mix.Config
 config :peepchat,
   ecto_repos: [Peepchat.Repo]
 
+config :guardian, Guardian,
+  allowed_algos: ["HS512"], # optional
+  verify_module: Guardian.JWT,  # optional
+  issuer: "Peepchat",
+  ttl: { 30, :days },
+  verify_issuer: true, # optional
+  secret_key: System.get_env("GUARDIAN_SECRET") || "evRqa3hS153/CNX+RFk9+L4WpcdGl0b7Kecla6kzW3Fq4PkG/WI4P9o7fLc5DG/o
+",
+  serializer: Peepchat.GuardianSerializer
+
 # Configures the endpoint
 config :peepchat, Peepchat.Endpoint,
   url: [host: "localhost"],
